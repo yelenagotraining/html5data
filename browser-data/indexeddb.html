@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Storage Event - Building on HTML5</title>
+        <link rel="icon" type="image/png" href="/favico.png" />
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/styles/bulma.min.css">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/scripts/highlightjs/styles/default.css">
+        <link rel="stylesheet" href="/scripts/highlightjs/styles/vs2015.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <nav class="level nav">
+            <!-- Left side -->
+            <div class="level-left">
+                <div class="level-item logo"><a href="/index.html"><img src="/building-on-html5.png" class="logo"></a></div>
+                <div class="level-item">/ Storage / IndexedDB</div>
+            </div>
+            
+            <!-- Right side -->
+            <div class="level-right"><a href="https://caniuse.com/#feat=indexeddb" target="_blank"><i class="fas fa-question-circle"></i></a></div>
+        </nav>
+        <section class="hero">
+            <div class="hero-body">
+                <div class="is-size-4 has-text-grey has-text-centered">
+                    <button class="button is-info" onclick="demo.init();">Initialize</button>
+                    <button class="button is-info" onclick="demo.add();">Add</button>
+                    <button class="button is-info" onclick="demo.get();">Get</button>
+                    <button class="button is-info" onclick="demo.update();">Update</button>
+                    <button class="button is-info" onclick="demo.delete();">Delete</button>
+                </div>
+
+                <details class="push-down-top-sm">
+                        <summary>code</summary>
+                        <pre><code class="javascript">const db = new PouchDB('building-on-html5');
+
+const add = async () => {
+    const person = {
+        _id: 'craig',
+        twitter: 'craigshoemaker'
+    };
+
+    const response = await db.put(person);
+    console.log(response);
+};
+
+const get = async () => {
+    const craig = await db.get('craig');
+    console.log(craig);
+};
+
+const update = async () => {
+    const person = await db.get('craig');
+    console.log(person);
+    person.github = 'craigshoemaker';
+    const response = await db.put(person);
+    console.log(response);
+};
+
+const delete = async () => {
+    const person = await db.get('craig');
+    const response = await db.remove(person);
+    console.log(response);
+};</code></pre>
+                </details>
+            </div>
+        </section>
+        <footer></footer>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.0.0/pouchdb.min.js" integrity="sha256-G4n35IzG7okSSNdGmcOvgFJ60IVyjohgkprGWfLJpj0=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/global.js"></script>
+    <script type="text/javascript" src="indexeddb.js"></script>
+    <script src="/scripts/highlightjs/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</html>
